@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ankit Raj - Software Engineer</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        :root {
+            --primary-dark: #111;
+            --primary-light: #fff;
+            --accent: #e53935; /* hint of red */
+            --gray1: #222;
+            --gray2: #333;
+            --gray3: #444;
+            --gray4: #888;
+            --section-padding: 80px;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: 'Segoe UI', Arial, sans-serif;
+            background: var(--primary-dark);
+            color: var(--primary-light);
+            min-height: 100vh;
+        }
+
+        h1, h2, h3 {
+            font-weight: 600;
+            color: var(--primary-light);
+        }
+
+        h1 { font-size: 2.8rem; margin-bottom: 0.5em; }
+        h2 { font-size: 2rem; margin-bottom: 1.5em; }
+        h3 { font-size: 1.2rem; margin-bottom: 0.5em; }
+
+        p { color: #e0e0e0; font-size: 1.1rem; margin-bottom: 1em; }
+
+        a { color: var(--accent); text-decoration: none; transition: color 0.2s; }
+        a:hover { color: #fff; }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 0 1.5rem;
+        }
+
+        nav {
+            width: 100%;
+            background: var(--gray1);
+            box-shadow: 0 2px 8px rgba(229,57,53,0.08);
+            position: fixed;
+            top: 0;
+            z-index: 100;
+        }
+
+        nav .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.2rem 0;
+        }
+
+        .nav-logo { font-size: 1.3rem; font-weight: 700; letter-spacing: 1px; color: var(--accent); }
+        .nav-links { display: flex; gap: 1.5rem; list-style: none; }
+        .nav-links a { font-weight: 500; position: relative; color: var(--primary-light); }
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            left: 0; bottom: -4px;
+            width: 0; height: 2px;
+            background: var(--accent);
+            transition: width 0.3s;
+        }
+        .nav-links a:hover::after { width: 100%; }
+
+        section {
+            padding: var(--section-padding) 0 60px 0;
+            min-height: 60vh;
+            display: flex;
+            align-items: center;
+        }
+
+        #hero {
+            background: var(--gray2);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+        }
+
+        .hero-content {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 1.5rem;
+            margin-top: 80px;
+        }
+
+        .hero-text h1 {
+            font-size: 3.2rem;
+            background: linear-gradient(90deg, #fff, var(--accent) 80%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero-text .subtitle {
+            font-size: 1.3rem;
+            color: var(--accent);
+            margin-bottom: 1.2rem;
+            opacity: 0;
+            animation: fadeInUp 1s 0.2s forwards;
+        }
+
+        .hero-text p {
+            color: #e0e0e0;
+            opacity: 0;
+            animation: fadeInUp 1s 0.4s forwards;
+        }
+
+        .hero-links {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1.5rem;
+            opacity: 0;
+            animation: fadeInUp 1s 0.6s forwards;
+        }
+
+        .btn {
+            padding: 0.7rem 1.4rem;
+            border-radius: 24px;
+            font-weight: 500;
+            background: var(--accent);
+            color: #fff;
+            border: none;
+            cursor: pointer;
+            transition: background 0.2s, transform 0.2s;
+        }
+
+        .btn:hover { background: #b71c1c; transform: translateY(-2px) scale(1.04); }
+
+        /* Timeline */
+        #experience {
+            background: var(--gray1);
+        }
+
+        .timeline {
+            position: relative;
+            margin: 0 auto;
+            max-width: 800px;
+        }
+
+        .timeline::after {
+            content: '';
+            position: absolute;
+            width: 3px;
+            background: var(--accent);
+            top: 0; bottom: 0; left: 50%;
+            margin-left: -1.5px;
+        }
+
+        .timeline-item {
+            padding: 20px 40px;
+            position: relative;
+            width: 50%;
+            opacity: 0;
+            transform: translateY(30px);
+            margin-bottom: 2.5rem;
+            background: var(--gray2);
+            border-radius: 10px;
+            box-shadow: 0 2px 12px rgba(229,57,53,0.08);
+            transition: box-shadow 0.3s;
+        }
+
+        .timeline-item.show {
+            opacity: 1;
+            transform: translateY(0);
+            transition: all 0.7s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 6px 24px rgba(229,57,53,0.13);
+        }
+
+        .timeline-item.left { left: 0; }
+        .timeline-item.right { left: 50%; }
+
+        .timeline-content { padding: 0; }
+        .timeline-date { font-size: 0.95em; color: var(--gray4); margin-bottom: 0.3em; }
+
+        /* ASCII Donut Animation */
+        #donut-container {
+            font-family: monospace;
+            white-space: pre;
+            font-size: 10px;
+            line-height: 1;
+            letter-spacing: 0;
+            margin-top: 20px;
+            margin-bottom: 20px;
+            text-align: center;
+            color: #fff;
+            text-shadow: 0 0 8px #e53935, 0 0 2px #fff;
+        }
+
+        /* Skills section */
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
+        .skill-category {
+            margin-bottom: 2rem;
+        }
+
+        .skill-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-top: 0.8rem;
+        }
+
+        .skill-tag {
+            padding: 0.4rem 0.8rem;
+            background: var(--gray3);
+            border-radius: 4px;
+            font-size: 0.9rem;
+            color: #fff;
+            transition: all 0.2s ease;
+        }
+
+        .skill-tag:hover {
+            background: var(--accent);
+            color: #fff;
+            transform: translateY(-2px);
+        }
+
+        /* Contact section */
+        .contact-info {
+            display: flex;
+            gap: 2rem;
+            margin-top: 1.5rem;
+        }
+
+        .contact-info a {
+            font-weight: 500;
+            font-size: 1.1rem;
+            display: inline-flex;
+            align-items: center;
+            color: var(--primary-light);
+        }
+        .contact-info a:hover { color: var(--accent); }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            0% { opacity: 0; transform: translateY(30px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Responsive */
+        @media (max-width: 900px) {
+            .timeline-item, .timeline-item.right, .timeline-item.left { width: 100%; left: 0; }
+            .timeline::after { left: 20px; }
+            .timeline-item { padding-left: 50px; padding-right: 20px; }
+            #donut-container { font-size: 8px; }
+        }
+
+        @media (max-width: 600px) {
+            h1 { font-size: 2rem; }
+            h2 { font-size: 1.2rem; }
+            .hero-content { margin-top: 60px; }
+            #donut-container { font-size: 6px; }
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <div class="container">
+            <div class="nav-logo">AR</div>
+            <ul class="nav-links">
+                <li><a href="#hero">Home</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#experience">Experience</a></li>
+                <li><a href="#skills">Skills</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+    <section id="hero">
+        <div class="container">
+            <div class="hero-content">
+                <div class="hero-text">
+                    <h1>Ankit Raj</h1>
+                    <p class="subtitle typewriter">Software Engineer</p>
+                    <p>Building robust, scalable solutions at the intersection of systems engineering and modern web technologies.</p>
+                    <div class="hero-links">
+                        <a href="https://www.linkedin.com/in/ankit-raj-aa190817b/" class="btn" target="_blank">LinkedIn</a>
+                        <a href="https://github.com/ankit-raj78" class="btn" target="_blank">GitHub</a>
+                    </div>
+                </div>
+                <div id="donut-container"></div>
+            </div>
+        </div>
+    </section>
+    <section id="about">
+        <div class="container">
+            <div class="about-content">
+                <h2>About Me</h2>
+                <p>I'm a Software Engineer with a passion for building scalable systems and solving complex technical challenges. Currently pursuing my MS in Electrical and Computer Engineering at Duke University, I bring experience in full-stack development, distributed systems, and machine learning infrastructure.</p>
+                <p>From architecting fraud detection platforms to developing multi-tenant applications, I thrive on creating elegant solutions to difficult problems.</p>
+            </div>
+        </div>
+    </section>
+    <section id="experience">
+        <div class="container">
+            <h2>Professional Journey</h2>
+            <div class="timeline">
+                <div class="timeline-item left">
+                    <div class="timeline-content">
+                        <div class="timeline-date">Aug 2022 - Present</div>
+                        <h3>Graduate Student, MS ECE</h3>
+                        <p><strong>Duke University</strong> - Durham, NC</p>
+                        <p>Focusing on Computer Engineering with coursework in Machine Learning, Computer Architecture, and Distributed Systems.</p>
+                    </div>
+                </div>
+                <div class="timeline-item right">
+                    <div class="timeline-content">
+                        <div class="timeline-date">Sept 2022 - Oct 2023</div>
+                        <h3>Software Engineer</h3>
+                        <p><strong>Azodha</strong> - NYC, NY (Remote)</p>
+                        <p>Led development of multi-tenant video chat application, achieving 40% performance improvement. Implemented HL7 EHR integration and mentored a team of 5 junior developers.</p>
+                    </div>
+                </div>
+                <div class="timeline-item left">
+                    <div class="timeline-content">
+                        <div class="timeline-date">Sept 2021 - Aug 2022</div>
+                        <h3>Software Engineer Intern</h3>
+                        <p><strong>TCS</strong> - Pune, India</p>
+                        <p>Developed RESTful APIs and microservices. Built fraud detection systems for financial security and compliance.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section id="skills">
+        <div class="container">
+            <h2>Tech Arsenal</h2>
+            <div class="skills-grid">
+                <div class="skill-category">
+                    <h3>Languages</h3>
+                    <div class="skill-tags">
+                        <span class="skill-tag">TypeScript</span>
+                        <span class="skill-tag">JavaScript</span>
+                        <span class="skill-tag">Python</span>
+                        <span class="skill-tag">Java</span>
+                        <span class="skill-tag">C++</span>
+                    </div>
+                </div>
+                <div class="skill-category">
+                    <h3>Frameworks</h3>
+                    <div class="skill-tags">
+                        <span class="skill-tag">React</span>
+                        <span class="skill-tag">Node.js</span>
+                        <span class="skill-tag">Express</span>
+                        <span class="skill-tag">FastAPI</span>
+                        <span class="skill-tag">TensorFlow</span>
+                    </div>
+                </div>
+                <div class="skill-category">
+                    <h3>Infrastructure</h3>
+                    <div class="skill-tags">
+                        <span class="skill-tag">AWS</span>
+                        <span class="skill-tag">Docker</span>
+                        <span class="skill-tag">Kubernetes</span>
+                        <span class="skill-tag">PostgreSQL</span>
+                        <span class="skill-tag">Redis</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section id="contact">
+        <div class="container">
+            <h2>Let's Connect</h2>
+            <p>Ready to build something amazing together?</p>
+            <div class="contact-info">
+                <a href="mailto:ankit.raj@duke.edu">Email</a>
+                <a href="https://www.linkedin.com/in/ankit-raj-aa190817b/" target="_blank">LinkedIn</a>
+                <a href="https://github.com/ankit-raj78" target="_blank">GitHub</a>
+            </div>
+        </div>
+    </section>
+    <script>
+        // Minimal fade-in animation for timeline
+        document.addEventListener('DOMContentLoaded', () => {
+            const items = document.querySelectorAll('.timeline-item');
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('show');
+                    }
+                });
+            }, { threshold: 0.2 });
+            items.forEach(item => observer.observe(item));
+            
+            // ASCII Donut Animation
+            const donutContainer = document.getElementById('donut-container');
+            
+            // Constants for the donut - these need to be outside the function to update between frames
+            let A = 1;           // Rotation around the x-axis
+            let B = 1;           // Rotation around the z-axis
+            const R1 = 1;          // Radius of the tube
+            const R2 = 2;          // Distance from center to tube
+            const K1 = 20;         // Screen scaling factor (reduced from 30 to fit donut in frame)
+            const K2 = 5;          // Distance from screen to donut
+            
+            // ASCII character density (from dark to light)
+            const asciiChars = ".,-~:;=!*#$@";
+            
+            // Calculate 3D donut
+            function calculateDonut() {
+                // Pre-calculated cos and sin values for current A and B values
+                const cosA = Math.cos(A);
+                const sinA = Math.sin(A);
+                const cosB = Math.cos(B);
+                const sinB = Math.sin(B);
+                
+                // Output buffer
+                let output = "";
+                // Z-buffer to store the z coordinate for each point on the 2D screen
+                let zBuffer = new Array(80 * 32).fill(0);
+                // Buffer to store the ASCII character for each point
+                let buffer = new Array(80 * 32).fill(' ');
+                
+                // Clear the buffer
+                for (let i = 0; i < 80 * 32; i++) {
+                    zBuffer[i] = 0;
+                    buffer[i] = ' ';
+                }
+                
+                // For each angle around the tube
+                for (let theta = 0; theta < 2 * Math.PI; theta += 0.07) {
+                    const cosTheta = Math.cos(theta);
+                    const sinTheta = Math.sin(theta);
+                    
+                    // For each angle around the cross-section of the tube
+                    for (let phi = 0; phi < 2 * Math.PI; phi += 0.02) {
+                        const cosPhi = Math.cos(phi);
+                        const sinPhi = Math.sin(phi);
+                        
+                        // 3D coordinates before projection
+                        const circleX = R2 + R1 * cosTheta;
+                        const circleY = R1 * sinTheta;
+                        
+                        // 3D coordinates after rotation
+                        const x = circleX * (cosB * cosPhi + sinA * sinB * sinPhi) - circleY * cosA * sinB;
+                        const y = circleX * (sinB * cosPhi - sinA * cosB * sinPhi) + circleY * cosA * cosB;
+                        const z = K2 + cosA * circleX * sinPhi + circleY * sinA;
+                        const ooz = 1 / z;  // "One over z"
+                        
+                        // 2D screen coordinates
+                        const xp = Math.floor(40 + K1 * ooz * x);
+                        const yp = Math.floor(16 + K1 * ooz * y); // Centered for 32 rows
+                        
+                        // Calculate the luminance
+                        const L = cosPhi * cosTheta * sinB - cosA * cosTheta * sinPhi -
+                            sinA * sinTheta + cosB * (cosA * sinTheta - cosTheta * sinA * sinPhi);
+                        
+                        // L ranges from -sqrt(2) to +sqrt(2). Adjust to 0-11 for ASCII index
+                        const luminanceIndex = Math.max(0, Math.floor((L + 1.414) * 6 / 2.828));
+                        
+                        const index = xp + 80 * yp;
+                        // Only update if the point is closer than what's already there
+                        if (xp >= 0 && xp < 80 && yp >= 0 && yp < 32) {
+                            if (ooz > zBuffer[index]) {
+                                zBuffer[index] = ooz;
+                                buffer[index] = asciiChars[luminanceIndex];
+                            }
+                        }
+                    }
+                }
+                
+                // Construct the output string
+                for (let i = 0; i < 32; i++) {
+                    for (let j = 0; j < 80; j++) {
+                        output += buffer[j + 80 * i];
+                    }
+                    output += "\n";
+                }
+                
+                return output;
+            }
+            
+            function renderDonut() {
+                donutContainer.textContent = calculateDonut();
+                // Update rotation angles for next frame (even slower)
+                A += 0.00875;
+                B += 0.00375;
+                // Render a second frame for smoother animation
+                donutContainer.textContent = calculateDonut();
+                A += 0.00875;
+                B += 0.00375;
+                // Request next animation frame
+                requestAnimationFrame(renderDonut);
+            }
+            
+            // Start the animation
+            requestAnimationFrame(renderDonut);
+        });
+    </script>
+</body>
+</html>
