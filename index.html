@@ -166,7 +166,7 @@
         .timeline-item {
             padding: 20px 40px;
             position: relative;
-            width: 50%;
+            width: 70%; /* Increased from 50% to 70% */
             opacity: 0;
             transform: translateY(30px);
             margin-bottom: 2.5rem;
@@ -183,24 +183,66 @@
             box-shadow: 0 6px 24px rgba(229,57,53,0.13);
         }
 
-        .timeline-item.left { left: 0; }
-        .timeline-item.right { left: 50%; }
+        .timeline-item.left { left: 0; width: 70%; }
+        .timeline-item.right { left: 50%; width: 70%; }
 
         .timeline-content { padding: 0; }
         .timeline-date { font-size: 0.95em; color: var(--gray4); margin-bottom: 0.3em; }
 
-        /* ASCII Donut Animation */
+        /* ASCII Donut Animation Window */
+        #donut-window {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 660px;
+            height: 420px; /* Increased height for full donut visibility */
+            margin: 32px auto 0 auto;
+            background: #111;
+            border: 2px solid #e53935;
+            border-radius: 18px;
+            box-shadow: 0 0 40px 10px rgba(229,57,53,0.4);
+            overflow: hidden;
+            z-index: 10;
+            position: relative;
+        }
         #donut-container {
             font-family: monospace;
-            white-space: pre;
-            font-size: 10px;
-            line-height: 1;
-            letter-spacing: 0;
-            margin-top: 20px;
-            margin-bottom: 20px;
-            text-align: center;
+            font-size: 14px;
+            line-height: 1.05;
             color: #fff;
             text-shadow: 0 0 8px #e53935, 0 0 2px #fff;
+            background: transparent;
+            margin: 0;
+            padding: 0 8px;
+            width: 640px;
+            height: 400px; /* Increased height for full donut visibility */
+            display: block;
+            overflow: hidden;
+            border: none;
+            box-sizing: border-box;
+            user-select: none;
+        }
+        @media (max-width: 900px) {
+            #donut-window {
+                width: 98vw;
+                height: 320px;
+            }
+            #donut-container {
+                font-size: 10px;
+                width: 96vw;
+                height: 300px;
+            }
+        }
+        @media (max-width: 600px) {
+            #donut-window {
+                width: 100vw;
+                height: 180px;
+            }
+            #donut-container {
+                font-size: 7px;
+                width: 98vw;
+                height: 160px;
+            }
         }
 
         /* Skills section */
@@ -299,13 +341,15 @@
                         <a href="https://github.com/ankit-raj78" class="btn" target="_blank">GitHub</a>
                     </div>
                 </div>
-                <div id="donut-container"></div>
+                <div id="donut-window">
+                  <pre id="donut-container"></pre>
+                </div>
             </div>
         </div>
     </section>
     <section id="about">
         <div class="container">
-            <div class="about-content">
+            <div class="about-content border-2 border-red-700 bg-black/90 shadow-[0_0_24px_4px_rgba(229,57,53,0.4)] hover:shadow-[0_0_48px_8px_rgba(229,57,53,0.7)] hover:border-white transition-all duration-300 rounded-xl p-6 z-10 relative block">
                 <h2>About Me</h2>
                 <p>I'm a Software Engineer with a passion for building scalable systems and solving complex technical challenges. Currently pursuing my MS in Electrical and Computer Engineering at Duke University, I bring experience in full-stack development, distributed systems, and machine learning infrastructure.</p>
                 <p>From architecting fraud detection platforms to developing multi-tenant applications, I thrive on creating elegant solutions to difficult problems.</p>
@@ -316,28 +360,73 @@
         <div class="container">
             <h2>Professional Journey</h2>
             <div class="timeline">
-                <div class="timeline-item left">
+                <div class="timeline-item left border-2 border-red-700 bg-black/90 shadow-[0_0_24px_4px_rgba(229,57,53,0.4)] hover:shadow-[0_0_48px_8px_rgba(229,57,53,0.7)] hover:border-white transition-all duration-300 rounded-xl z-10 relative block">
                     <div class="timeline-content">
-                        <div class="timeline-date">Aug 2022 - Present</div>
+                        <div class="timeline-date">May 2025 — Present</div>
+                        <h3>Director of Technical Operations</h3>
+                        <p><strong>Scam AI, Reality.inc</strong> – San Francisco, California, USA</p>
+                        <ul>
+                            <li>Engineered robust server infrastructure with TypeScript/Node.js dynamic payload support for ML model processing. Designed fault-tolerant system with containerized services, health monitoring, and route registry patterns.</li>
+                            <li>Built production-ready ML pipeline integrating deepfake detection, voice cloning, and document fraud prevention with real-time processing capabilities and enterprise security standards.</li>
+                            <li>Led full-stack development of AI-powered fraud detection platform, architecting microservices ecosystem with robust error handling, security middleware, and ML model integration serving enterprise-scale security operations.</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="timeline-item right border-2 border-red-700 bg-black/90 shadow-[0_0_24px_4px_rgba(229,57,53,0.4)] hover:shadow-[0_0_48px_8px_rgba(229,57,53,0.7)] hover:border-white transition-all duration-300 rounded-xl z-10 relative block">
+                    <div class="timeline-content">
+                        <div class="timeline-date">Oct 2023 – Present</div>
+                        <h3>Research Data Science Volunteer</h3>
+                        <p><strong>IndoHeal Map</strong> – Mumbai, India</p>
+                        <ul>
+                            <li>Collaborating with ASAR for India and Harvard medical team on drone-based delivery for distributing blood and pharmaceutical supplies to underprivileged populations using geospatial analysis.</li>
+                            <li>Creating a geolocation database of 700,000+ public and private healthcare facilities in India.</li>
+                            <li>Developing statistical pipelines and visualizations using spatial libraries in R for healthcare accessibility.</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="timeline-item left border-2 border-red-700 bg-black/90 shadow-[0_0_24px_4px_rgba(229,57,53,0.4)] hover:shadow-[0_0_48px_8px_rgba(229,57,53,0.7)] hover:border-white transition-all duration-300 rounded-xl z-10 relative block">
+                    <div class="timeline-content">
+                        <div class="timeline-date">2024 - Present</div>
                         <h3>Graduate Student, MS ECE</h3>
                         <p><strong>Duke University</strong> - Durham, NC</p>
                         <p>Focusing on Computer Engineering with coursework in Machine Learning, Computer Architecture, and Distributed Systems.</p>
                     </div>
                 </div>
-                <div class="timeline-item right">
+                <div class="timeline-item right border-2 border-red-700 bg-black/90 shadow-[0_0_24px_4px_rgba(229,57,53,0.4)] hover:shadow-[0_0_48px_8px_rgba(229,57,53,0.7)] hover:border-white transition-all duration-300 rounded-xl z-10 relative block">
                     <div class="timeline-content">
-                        <div class="timeline-date">Sept 2022 - Oct 2023</div>
+                        <div class="timeline-date">Sept 2022 — Oct 2023</div>
                         <h3>Software Engineer</h3>
-                        <p><strong>Azodha</strong> - NYC, NY (Remote)</p>
-                        <p>Led development of multi-tenant video chat application, achieving 40% performance improvement. Implemented HL7 EHR integration and mentored a team of 5 junior developers.</p>
+                        <p><strong>Azodha</strong> – NYC, New York, USA (Remote)</p>
+                        <ul>
+                            <li>Spearheaded the development of a multi-tenant video chat application, driving third-party software integration through robust APIs, significantly enhancing platform scalability using TypeScript with design patterns and principles to implement platform normalization, resulting in a 40% performance improvement and enhanced multi-tenancy capabilities.</li>
+                            <li>Automated PostgreSQL database versioning and updates, reducing manual deployment efforts by 40%, and utilized GitHub Actions with OpenTelemetry, SigNoz, and AWS dashboards to improve system performance monitoring.</li>
+                            <li>Implemented HL7 Electronic health record integration with accurate data mapping and stable TCP connections via Mirth Connect, improving interoperability with external healthcare systems by 15% and ensuring a stable connection.</li>
+                            <li>Mentored and led a team of 5 engineers, promoting peer programming, knowledge sharing, and rigorous code reviews, which improved team productivity by 35% and code quality as evidenced by a 25% reduction in post-deployment defects.</li>
+                        </ul>
                     </div>
                 </div>
-                <div class="timeline-item left">
+                <div class="timeline-item left border-2 border-red-700 bg-black/90 shadow-[0_0_24px_4px_rgba(229,57,53,0.4)] hover:shadow-[0_0_48px_8px_rgba(229,57,53,0.7)] hover:border-white transition-all duration-300 rounded-xl z-10 relative block">
                     <div class="timeline-content">
-                        <div class="timeline-date">Sept 2021 - Aug 2022</div>
-                        <h3>Software Engineer Intern</h3>
-                        <p><strong>TCS</strong> - Pune, India</p>
-                        <p>Developed RESTful APIs and microservices. Built fraud detection systems for financial security and compliance.</p>
+                        <div class="timeline-date">Sept 2021 – May 2022</div>
+                        <h3>Project Lead</h3>
+                        <p><strong>HÜLSBECK and FÜRST GMBH and CO. KG</strong> – Velbert, North Rhine-Westphalia, Germany (Remote)</p>
+                        <ul>
+                            <li>Spearheaded the development of a web solution using the MERN (MongoDB, Electron, ReactJs, NodeJs) stack, increasing efficiency by 30% and providing live metrics via dashboards.</li>
+                            <li>Implemented secure logins with RBAC, secure form submissions, and live data feeds from machines to the cloud using ESP-32.</li>
+                            <li>Consistently met 100% of project milestones on schedule using AGILE methods and facilitated smooth knowledge transfer to new hires.</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="timeline-item right border-2 border-red-700 bg-black/90 shadow-[0_0_24px_4px_rgba(229,57,53,0.4)] hover:shadow-[0_0_48px_8px_rgba(229,57,53,0.7)] hover:border-white transition-all duration-300 rounded-xl z-10 relative block">
+                    <div class="timeline-content">
+                        <div class="timeline-date">Jan 2021 – May 2021</div>
+                        <h3>Research Intern</h3>
+                        <p><strong>Transliteration of Roman scripts to Devanagari using CNN and LSTMs</strong> – Pune, India</p>
+                        <ul>
+                            <li>Researched with CDAC (Ministry of Electronics and IT, Govt. of India) on Roman-to-Devanagari transliteration to enhance language analysis tools for education and research.</li>
+                            <li>Conducted a study on transliteration evolution and analyzed key research papers, strengthening the project’s foundation.</li>
+                            <li>Leveraged an encoder-decoder architecture with self-attention, achieving 85% accuracy.</li>
+                        </ul>
                     </div>
                 </div>
             </div>
@@ -347,7 +436,7 @@
         <div class="container">
             <h2>Tech Arsenal</h2>
             <div class="skills-grid">
-                <div class="skill-category">
+                <div class="skill-category border-2 border-red-700 bg-black/90 shadow-[0_0_24px_4px_rgba(229,57,53,0.4)] hover:shadow-[0_0_48px_8px_rgba(229,57,53,0.7)] hover:border-white transition-all duration-300 rounded-xl p-4 mb-4 z-10 relative block">
                     <h3>Languages</h3>
                     <div class="skill-tags">
                         <span class="skill-tag">TypeScript</span>
@@ -357,7 +446,7 @@
                         <span class="skill-tag">C++</span>
                     </div>
                 </div>
-                <div class="skill-category">
+                <div class="skill-category border-2 border-red-700 bg-black/90 shadow-[0_0_24px_4px_rgba(229,57,53,0.4)] hover:shadow-[0_0_48px_8px_rgba(229,57,53,0.7)] hover:border-white transition-all duration-300 rounded-xl p-4 mb-4 z-10 relative block">
                     <h3>Frameworks</h3>
                     <div class="skill-tags">
                         <span class="skill-tag">React</span>
@@ -367,7 +456,7 @@
                         <span class="skill-tag">TensorFlow</span>
                     </div>
                 </div>
-                <div class="skill-category">
+                <div class="skill-category border-2 border-red-700 bg-black/90 shadow-[0_0_24px_4px_rgba(229,57,53,0.4)] hover:shadow-[0_0_48px_8px_rgba(229,57,53,0.7)] hover:border-white transition-all duration-300 rounded-xl p-4 mb-4 z-10 relative block">
                     <h3>Infrastructure</h3>
                     <div class="skill-tags">
                         <span class="skill-tag">AWS</span>
@@ -406,107 +495,60 @@
             
             // ASCII Donut Animation
             const donutContainer = document.getElementById('donut-container');
-            
-            // Constants for the donut - these need to be outside the function to update between frames
-            let A = 1;           // Rotation around the x-axis
-            let B = 1;           // Rotation around the z-axis
-            const R1 = 1;          // Radius of the tube
-            const R2 = 2;          // Distance from center to tube
-            const K1 = 20;         // Screen scaling factor (reduced from 30 to fit donut in frame)
-            const K2 = 5;          // Distance from screen to donut
-            
-            // ASCII character density (from dark to light)
+            // Constants for the donut
+            let A = 1;
+            let B = 1;
+            const R1 = 1;
+            const R2 = 2;
+            const K1 = 20; // Back to original size
+            const K2 = 5;
             const asciiChars = ".,-~:;=!*#$@";
-            
-            // Calculate 3D donut
             function calculateDonut() {
-                // Pre-calculated cos and sin values for current A and B values
                 const cosA = Math.cos(A);
                 const sinA = Math.sin(A);
                 const cosB = Math.cos(B);
                 const sinB = Math.sin(B);
-                
-                // Output buffer
                 let output = "";
-                // Z-buffer to store the z coordinate for each point on the 2D screen
                 let zBuffer = new Array(80 * 32).fill(0);
-                // Buffer to store the ASCII character for each point
                 let buffer = new Array(80 * 32).fill(' ');
-                
-                // Clear the buffer
                 for (let i = 0; i < 80 * 32; i++) {
                     zBuffer[i] = 0;
                     buffer[i] = ' ';
                 }
-                
-                // For each angle around the tube
                 for (let theta = 0; theta < 2 * Math.PI; theta += 0.07) {
                     const cosTheta = Math.cos(theta);
                     const sinTheta = Math.sin(theta);
-                    
-                    // For each angle around the cross-section of the tube
                     for (let phi = 0; phi < 2 * Math.PI; phi += 0.02) {
                         const cosPhi = Math.cos(phi);
                         const sinPhi = Math.sin(phi);
-                        
-                        // 3D coordinates before projection
                         const circleX = R2 + R1 * cosTheta;
                         const circleY = R1 * sinTheta;
-                        
-                        // 3D coordinates after rotation
                         const x = circleX * (cosB * cosPhi + sinA * sinB * sinPhi) - circleY * cosA * sinB;
                         const y = circleX * (sinB * cosPhi - sinA * cosB * sinPhi) + circleY * cosA * cosB;
                         const z = K2 + cosA * circleX * sinPhi + circleY * sinA;
-                        const ooz = 1 / z;  // "One over z"
-                        
-                        // 2D screen coordinates
+                        const ooz = 1 / z;
                         const xp = Math.floor(40 + K1 * ooz * x);
                         const yp = Math.floor(16 + K1 * ooz * y); // Centered for 32 rows
-                        
-                        // Calculate the luminance
                         const L = cosPhi * cosTheta * sinB - cosA * cosTheta * sinPhi -
                             sinA * sinTheta + cosB * (cosA * sinTheta - cosTheta * sinA * sinPhi);
-                        
-                        // L ranges from -sqrt(2) to +sqrt(2). Adjust to 0-11 for ASCII index
                         const luminanceIndex = Math.max(0, Math.floor((L + 1.414) * 6 / 2.828));
-                        
                         const index = xp + 80 * yp;
-                        // Only update if the point is closer than what's already there
-                        if (xp >= 0 && xp < 80 && yp >= 0 && yp < 32) {
-                            if (ooz > zBuffer[index]) {
-                                zBuffer[index] = ooz;
-                                buffer[index] = asciiChars[luminanceIndex];
-                            }
+                        if (yp >= 0 && yp < 32 && xp >= 0 && xp < 80 && ooz > zBuffer[index]) {
+                            zBuffer[index] = ooz;
+                            buffer[index] = asciiChars[luminanceIndex];
                         }
                     }
                 }
-                
-                // Construct the output string
+                // Join the buffer array into a string with line breaks
                 for (let i = 0; i < 32; i++) {
-                    for (let j = 0; j < 80; j++) {
-                        output += buffer[j + 80 * i];
-                    }
-                    output += "\n";
+                    output += buffer.slice(i * 80, (i + 1) * 80).join('') + '\n';
                 }
-                
-                return output;
+                donutContainer.textContent = output;
+                A += 0.04;
+                B += 0.02;
             }
-            
-            function renderDonut() {
-                donutContainer.textContent = calculateDonut();
-                // Update rotation angles for next frame (even slower)
-                A += 0.00875;
-                B += 0.00375;
-                // Render a second frame for smoother animation
-                donutContainer.textContent = calculateDonut();
-                A += 0.00875;
-                B += 0.00375;
-                // Request next animation frame
-                requestAnimationFrame(renderDonut);
-            }
-            
-            // Start the animation
-            requestAnimationFrame(renderDonut);
+            calculateDonut();
+            setInterval(calculateDonut, 1000/30); // 30 FPS
         });
     </script>
 </body>
